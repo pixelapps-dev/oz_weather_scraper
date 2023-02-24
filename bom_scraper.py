@@ -10,17 +10,17 @@ import pytz
 
 # %%
 
-from selenium import webdriver 
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
+# from selenium import webdriver 
+# from selenium.webdriver.firefox.options import Options
+# from selenium.webdriver.support.ui import Select
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.support import expected_conditions as EC
 
-chrome_options = Options()
-chrome_options.add_argument("--headless")
+# chrome_options = Options()
+# chrome_options.add_argument("--headless")
 
-driver = webdriver.Firefox(options=chrome_options)
+# driver = webdriver.Firefox(options=chrome_options)
 
 # %%
 
@@ -61,18 +61,18 @@ def scraper(stem, out_path, combo_path, urlo):
 
     # rand_delay(10)
 
-    # headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
-    # r = requests.get(urlo, headers=headers)
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+    r = requests.get(urlo, headers=headers)
 
 
-    # print("R status: ", r.status_code)
-    # tabs = pd.read_html(r.text)[1:]
+    print("R status: ", r.status_code)
+    tabs = pd.read_html(r.text)[1:]
 
-    driver.get(urlo)
+    # driver.get(urlo)
 
     time.sleep(2)
 
-    tabs = pd.read_html(driver.page_source)
+    # tabs = pd.read_html(driver.page_source)
     # print("Num tabs: ", len(tabs))
 
 
@@ -140,7 +140,7 @@ scraper("Canberra", 'data/raw','data',  'http://www.bom.gov.au/places/act/canber
 
 scraper("Darwin", 'data/raw','data',  'http://www.bom.gov.au/places/nt/darwin/')
 
-driver.quit()
+# driver.quit()
 
 
 # %%
