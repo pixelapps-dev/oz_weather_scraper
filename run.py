@@ -29,11 +29,11 @@ import bom_scraper
 rand_delay(5)
 
 
-os.system(f"gh auth login --with-token < {token}")
-os.system("git add .")
-git_commit_with_time = f'git commit -m "New data:{current_time}"'
-os.system(git_commit_with_time)
-os.system("git push --set-upstream origin main")
+# os.system(f"gh auth login --with-token < {token}")
+# os.system("git add .")
+# git_commit_with_time = f'git commit -m "New data:{current_time}"'
+# os.system(git_commit_with_time)
+# os.system("git push --set-upstream origin main")
 
 
-# %%
+# # %%

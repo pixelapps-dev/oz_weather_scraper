@@ -61,7 +61,11 @@ def scraper(stem, out_path, combo_path, urlo):
 
     # rand_delay(10)
 
-    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+    headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36",
+    'Accept-Language': "en-GB,en-US;q=0.9,en;q=0.8",
+    "Referer": 'https://www.google.com',
+    "DNT":'1'}
+    
     r = requests.get(urlo, headers=headers)
 
 
