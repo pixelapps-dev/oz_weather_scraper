@@ -40,11 +40,14 @@ def if_no_fold_create(pathos, to_check):
 
 def scraper(stem, out_path, combo_path, urlo):
 
+    print("## Starting: ", stem)
+
     rand_delay(10)
 
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
     r = requests.get(urlo, headers=headers)
 
+    print("R status: ", r.status_code)
 
 
     if_no_fold_create('input/data/raw', scrape_date_stemmo)
