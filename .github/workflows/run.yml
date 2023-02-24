@@ -1,19 +1,18 @@
 name: Scraper
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
   schedule:
     - cron: "17 8,20 * * *"
+permissions:
+  contents: write
 
 jobs:
-  build-and-deploy:
+  scrape:
     runs-on: ubuntu-latest
     steps:
-      - name: Get working copy
-        uses: actions/checkout@master                                                               
+      - name: Check out this repo
+        uses: actions/checkout@v2                                                               
       - name: Set up Python 3.9                               
         uses: actions/setup-python@master                               
         with:                                 
