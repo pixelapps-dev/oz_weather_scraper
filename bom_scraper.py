@@ -3,8 +3,24 @@ import pandas as pd
 import os 
 import requests
 
+import time 
+
 import datetime
 import pytz
+
+# %%
+
+from selenium import webdriver 
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+
+driver = webdriver.Firefox(options=chrome_options)
 
 # %%
 
@@ -43,51 +59,68 @@ def scraper(stem, out_path, combo_path, urlo):
 
     print("## Starting: ", stem)
 
-    rand_delay(10)
+    # rand_delay(10)
 
-    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
-    r = requests.get(urlo, headers=headers)
+    # headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+    # r = requests.get(urlo, headers=headers)
 
-    print("R status: ", r.status_code)
+
+    # print("R status: ", r.status_code)
+    # tabs = pd.read_html(r.text)[1:]
+
+    driver.get(urlo)
+
+    time.sleep(2)
+
+    tabs = pd.read_html(driver.page_source)
+    # print("Num tabs: ", len(tabs))
 
 
     if_no_fold_create('data/raw', scrape_date_stemmo)
 
-    tabs = pd.read_html(r.text)[1:]
+
+    day_counter = 0
 
     listo = []
 
-    for i in range(1, len(tabs)):
-        
-        tabbo = tabs[i]
-        'Time (AEDT)', 'Temp (°C)', 'Feels Like (°C)', 'Humidity(%)', 'Wind Direction', 
-        'Wind Speed (km/h) (knots)', 'Wind Gust (km/h) (knots)', 
-        'Pressure (hPa)', 'Rainfall since 9 am (mm)'
+    for i in range(0, len(tabs)):
 
-        inter_date = today  - datetime.timedelta(days=i)
-        inter_date_format = inter_date.astimezone(pytz.timezone("Australia/Brisbane")).strftime('%Y-%m-%d')
+        # if tabs[i].columns.tolist() == ['Time (AEDT)', 'Temp (°C)', 'Feels Like (°C)', 'Humidity(%)', 'Wind Direction', 'Wind Speed (km/h) (knots)', 
+        #                                 'Wind Gust (km/h) (knots)', 'Pressure (hPa)', 'Rainfall since 9 am (mm)']:
 
-        tabbo['Date'] = inter_date_format
+        if  'Temp (°C)' in tabs[i].columns.tolist():
 
-        # pp(tabbo)
-        # print(i)
-        # print(inter_date.strftime('%Y-%m-%d'))
+            tabbo = tabs[i]
+            'Time (AEDT)', 'Temp (°C)', 'Feels Like (°C)', 'Humidity(%)', 'Wind Direction', 
+            'Wind Speed (km/h) (knots)', 'Wind Gust (km/h) (knots)', 
+            'Pressure (hPa)', 'Rainfall since 9 am (mm)'
+
+            inter_date = today  - datetime.timedelta(days=day_counter)
+            inter_date_format = inter_date.astimezone(pytz.timezone("Australia/Brisbane")).strftime('%Y-%m-%d')
+
+            tabbo['Date'] = inter_date_format
+
+            # print(inter_date_format)
+
+            dumper(f"{out_path}/{scrape_date_stemmo}", f"{stem}_{scrape_hour}_{day_counter}", tabbo)  
+            listo.append(tabbo)  
 
 
-        dumper(f"{out_path}/{scrape_date_stemmo}", f"{stem}_{scrape_hour}_{i}", tabbo)  
-        listo.append(tabbo)  
+            cat = pd.concat(listo)
 
+            if os.path.isfile(f"{combo_path}/{stem}"):
+                old = pd.read_csv(f"{combo_path}/{stem}")
+                cat = pd.concat[old, cat]
+                cat.drop_duplicates(subset=['Time (AEDT)', 'Date'], inplace=True)
 
-    cat = pd.concat(listo)
+            
+            dumper(combo_path, stem, cat)
 
-    if os.path.isfile(f"{combo_path}/{stem}"):
-        old = pd.read_csv(f"{combo_path}/{stem}")
-        cat = pd.concat[old, cat]
-        cat.drop_duplicates(subset=['Time (AEDT)', 'Date'], inplace=True)
-
-       
-    dumper(combo_path, stem, cat)
-
+            day_counter += 1
+        # else:
+        #     print(tabs[i].columns.tolist())
+        #     print("Didn't work?")
+        #     continue
 
 
 
@@ -107,7 +140,7 @@ scraper("Canberra", 'data/raw','data',  'http://www.bom.gov.au/places/act/canber
 
 scraper("Darwin", 'data/raw','data',  'http://www.bom.gov.au/places/nt/darwin/')
 
-
+driver.quit()
 
 
 # %%
