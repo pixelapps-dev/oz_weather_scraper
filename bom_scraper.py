@@ -51,7 +51,7 @@ def scraper(stem, out_path, combo_path, urlo):
     print("R status: ", r.status_code)
 
 
-    if_no_fold_create('input/data/raw', scrape_date_stemmo)
+    if_no_fold_create('data/raw', scrape_date_stemmo)
 
     tabs = pd.read_html(r.text)[1:]
 
@@ -91,21 +91,21 @@ def scraper(stem, out_path, combo_path, urlo):
 
 
 
-scraper("Sydney", 'input/data/raw','input/data',  'http://www.bom.gov.au/places/nsw/turramurra/observations/sydney---observatory-hill/')
+scraper("Sydney", 'data/raw','data',  'http://www.bom.gov.au/places/nsw/turramurra/observations/sydney---observatory-hill/')
 
-scraper("Melbourne", 'input/data/raw','input/data',  'http://www.bom.gov.au/places/vic/melbourne/observations/melbourne-(olympic-park)/')
+scraper("Melbourne", 'data/raw','data',  'http://www.bom.gov.au/places/vic/melbourne/observations/melbourne-(olympic-park)/')
 
-scraper("Brisbane", 'input/data/raw','input/data',  'http://www.bom.gov.au/places/qld/brisbane/observations/brisbane/')
+scraper("Brisbane", 'data/raw','data',  'http://www.bom.gov.au/places/qld/brisbane/observations/brisbane/')
 
-scraper("Perth", 'input/data/raw','input/data',  'http://www.bom.gov.au/places/wa/perth/observations/perth/')
+scraper("Perth", 'data/raw','data',  'http://www.bom.gov.au/places/wa/perth/observations/perth/')
 
-scraper("Adelaide", 'input/data/raw','input/data',  'http://www.bom.gov.au/places/sa/adelaide/observations/adelaide-(west-terrace----ngayirdapira)/')
+scraper("Adelaide", 'data/raw','data',  'http://www.bom.gov.au/places/sa/adelaide/observations/adelaide-(west-terrace----ngayirdapira)/')
 
-scraper("Hobart", 'input/data/raw','input/data',  'http://www.bom.gov.au/places/tas/hobart/observations/hobart/')
+scraper("Hobart", 'data/raw','data',  'http://www.bom.gov.au/places/tas/hobart/observations/hobart/')
 
-scraper("Canberra", 'input/data/raw','input/data',  'http://www.bom.gov.au/places/act/canberra/observations/canberra/')
+scraper("Canberra", 'data/raw','data',  'http://www.bom.gov.au/places/act/canberra/observations/canberra/')
 
-scraper("Darwin", 'input/data/raw','input/data',  'http://www.bom.gov.au/places/nt/darwin/')
+scraper("Darwin", 'data/raw','data',  'http://www.bom.gov.au/places/nt/darwin/')
 
 
 
