@@ -33,7 +33,7 @@ def if_no_fold_create(pathos, to_check):
 
     if to_check not in folds:
         os.mkdir(f"{pathos}{to_check}")
-    print(folds)
+    # print(folds)
 
 
 # %%
