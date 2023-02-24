@@ -10,6 +10,7 @@ import pytz
 
 today = datetime.datetime.now()
 scrape_date_stemmo = today.astimezone(pytz.timezone("Australia/Brisbane")).strftime('%Y%m%d')
+scrape_hour = today.astimezone(pytz.timezone("Australia/Brisbane")).strftime('%H')
 
 # %%
 
@@ -73,7 +74,7 @@ def scraper(stem, out_path, combo_path, urlo):
         # print(inter_date.strftime('%Y-%m-%d'))
 
 
-        dumper(f"{out_path}/{scrape_date_stemmo}", f"{stem}_{i}", tabbo)  
+        dumper(f"{out_path}/{scrape_date_stemmo}", f"{stem}_{scrape_hour}_{i}", tabbo)  
         listo.append(tabbo)  
 
 
