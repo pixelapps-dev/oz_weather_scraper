@@ -65,11 +65,11 @@ def scraper(stem, out_path, combo_path, urlo):
     'Accept-Language': "en-GB,en-US;q=0.9,en;q=0.8",
     "Referer": 'https://www.google.com',
     "DNT":'1'}
-    
+
     r = requests.get(urlo, headers=headers)
 
 
-    print("R status: ", r.status_code)
+    # print("R status: ", r.status_code)
     tabs = pd.read_html(r.text)[1:]
 
     # driver.get(urlo)
