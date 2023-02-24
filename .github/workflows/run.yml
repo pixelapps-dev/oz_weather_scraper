@@ -21,7 +21,7 @@ jobs:
           cache: 'pip'
   
       - name: 💿 Install Requirements                             
-        run: pip install -r reqs.txt
+        run: pip install -r requirements.txt
         
       - name: 🍳 Scrape bom
         run: python bom_scraper.py
