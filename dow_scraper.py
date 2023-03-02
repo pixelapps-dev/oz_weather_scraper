@@ -17,6 +17,17 @@ scrape_hour = today.astimezone(pytz.timezone("Australia/Brisbane")).strftime('%H
 
 # %%
 
+def if_no_fold_create(pathos, to_check):
+    if pathos[-1] != '/':
+        pathos += '/'
+
+    folds = os.listdir(pathos)
+
+    if to_check not in folds:
+        os.mkdir(f"{pathos}{to_check}")
+
+# %%
+
 ### Get the date range
 
 months = [today - datetime.timedelta(days=(30 * x)) for x in range(0, 14)]
