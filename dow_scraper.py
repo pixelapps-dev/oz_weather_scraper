@@ -69,7 +69,7 @@ for city in cities:
 
         r = requests.get(urlo, headers=headers)
 
-        # print(r.url)
+        print(r.url)
         # print(r.status_code)
 
 # %%
@@ -82,3 +82,5 @@ print(tabs.columns.tolist())
 
 
 # %%
+
+# http://www.bom.gov.au/climate/dwo/{month}/html/
